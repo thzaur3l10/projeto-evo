@@ -1,0 +1,462 @@
+MDNavigationLayout:
+    ScreenManager:
+        id: screen_manager
+        HomeScreen:
+        PacienteScreen:
+        ConvenioScreen:
+        ClinicoScreen:
+        SessaoScreen:
+    #    EvolucaoScreen:
+        SaidaScreen:
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        BoxLayout:
+            orientation: "vertical"
+            spacing: "10dp"
+            padding: "10dp"
+
+            canvas:
+                Color:
+                    rgba: 121/255, 187/255, 189/255, 1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            MDLabel:
+                text: "Menu"
+                font_style: "H5"
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        text: "Home"
+                        on_release:
+                            screen_manager.current = "home"
+                            nav_drawer.set_state("close")
+                        IconLeftWidget:
+                            icon: 'home-circle'
+                    OneLineIconListItem:
+                        text: "Paciente"
+                        on_release:
+                            screen_manager.current = "paciente"
+                            nav_drawer.set_state("close")
+                    OneLineIconListItem:
+                        text: "Convênio"
+                        on_release:
+                            screen_manager.current = "convenio"
+                            nav_drawer.set_state("close")
+                    OneLineIconListItem:
+                        text: "Clínico"
+                        on_release:
+                            screen_manager.current = "clinico"
+                            nav_drawer.set_state("close")
+                    OneLineIconListItem:
+                        text: "Sessão"
+                        on_release:
+                            screen_manager.current = "sessao"
+                            nav_drawer.set_state("close")
+    #                OneLineIconListItem:
+    #                    text: "Evolução"
+    #                    on_release:
+    #                        screen_manager.current = "evolucao"
+    #                        nav_drawer.set_state("close")
+                    OneLineIconListItem:
+                        text: "Sair"
+                        on_release:
+                            screen_manager.current = "Saida"
+                            nav_drawer.set_state("close")
+
+<SaidaScreen>:
+    name: "Saida"
+    MDBoxLayout:
+        orientation: "vertical"
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+
+        MDTopAppBar:
+            title: "Saída"
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+        MDLabel:
+            id: texto1
+            text: "Obrigado por usar o EVO!"
+            font_style: "H6"
+            halign: "center"
+        Image:
+            source: "img/mym.png"
+            size_hint: 3.10, 3.10
+            pos_hint: {"center_x": .5, "center_y": .7}
+        MDLabel:
+            id: texto2
+            text: "Escolha uma opção no menu e continue usando o aplicativo!"
+            halign: "center"
+
+<HomeScreen>:
+    name: "home"
+
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+        padding:20
+        spacing:10
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDTopAppBar:
+            title: "EVO - Evolução Clínica "
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+#        ScrollView:
+#            MDList:
+#                id: lista_pacientes
+#        MDRaisedButton:
+#            text: "Atualizar Lista"
+#            on_release: root.carregar_pacientes()
+
+        Image:
+            source: "img/mym.png"
+            size_hint: 3.10, 3.10
+            pos_hint: {"center_x": .5, "center_y": .7}
+
+        MDLabel:
+            text: "Seja Bem-vindo!"
+            font_style: "H6"
+            bold:True
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDLabel:
+            text: "Faça o seu login!"
+            font_style: "Caption"
+            halign: "center"
+            pos_hint: {"center_x": .5, "center_y": .45}
+
+        MDTextField:
+            id: usuario
+            hint_text:"Usuário:"
+            pos_hint: {"center_x": .5, "center_y": .35}
+            size_hint_x: .7
+            icon_left: "account"
+
+        MDTextField:
+            id: senha
+            hint_text:"Senha:"
+            pos_hint: {"center_x": .5, "center_y": .25}
+            size_hint_x: .7
+            password: True
+            icon_left: "lock"
+
+        MDFillRoundFlatButton:
+
+            text: "Entrar"
+            pos_hint: {"center_x": .5, "center_y": .15}
+            size_hint_x: .7
+            on_release: root.login()  # Call the login method in the app
+            md_bg_color: app.theme_cls.primary_color
+
+        MDTextButton:
+            text: "Esqueci minha senha"
+            pos_hint: {"center_x": .5, "center_y": .07}
+            size_hint_x: .7
+            on_release: root.reset_password()  # Call the reset password method in the app
+            theme_text_color: "Custom"
+            text_color: app.theme_cls.primary_color
+
+
+<PacienteScreen>:
+    name: "paciente"
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+        padding:20
+        spacing:10
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDTopAppBar:
+            title: "Cadastro Paciente"
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+        ScrollView:
+            MDGridLayout:
+                id: container
+                cols: 1
+                adaptive_height: True
+                MDTextField:
+                    id: data
+                    hint_text: "Data"
+                    
+                MDTextField:
+                    id: nome
+                    hint_text: "Nome"
+                    
+                MDTextField:
+                    id: cpf
+                    hint_text: "CPF"
+                MDTextField:
+                    id: dtnasc
+                    hint_text: "Data Nascimento"
+                MDTextField:
+                    id: email
+                    hint_text: "Email"
+                MDTextField:
+                    id: contato
+                    hint_text: "Contato"
+                MDTextField:
+                    id: responsavel
+                    hint_text: "Responsável"
+                MDTextField:
+                    id: cpf_responsavel
+                    hint_text: "CPF Responsável"
+                MDTextField:
+                    id: hipotese
+                    hint_text: "Hipótese Diagnóstica"
+                MDTextField:
+                    id: email_responsavel
+                    hint_text: "Email Responsável"
+                MDTextField:
+                    id: contato_responsavel
+                    hint_text: "Contato Responsável"
+                MDTextField:
+                    id: logradouro
+                    hint_text: "Logradouro"
+                MDTextField:
+                    id: numero
+                    hint_text: "Número"
+                MDTextField:
+                    id: complemento
+                    hint_text: "Complemento"
+                MDTextField:
+                    id: bairro
+                    hint_text: "Bairro"
+                MDTextField:
+                    id: cep
+                    hint_text: "CEP"
+                MDTextField:
+                    id: uf
+                    hint_text: "UF"
+                MDTextField:
+                    id: cp
+                    hint_text: "Convênio/Particular"
+        MDRaisedButton:
+            text: "Salvar"
+            on_release: root.salvar()
+
+<ConvenioScreen>:
+    name: "convenio"
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+        padding:20
+        spacing:10
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+  
+        MDTopAppBar:
+            title: "Cadastro Convênio"
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+        ScrollView:
+            MDGridLayout:
+                id: container
+                cols: 1
+                adaptive_height: True
+                MDTextField: 
+                    id: cpf
+                    hint_text: "CPF do Paciente"
+                MDTextField: 
+                    id: convenio 
+                    hint_text: "Convênio"
+                MDTextField: 
+                    id: plano
+                    hint_text: "Plano"
+                MDTextField: 
+                    id: carteirinha
+                    hint_text: "Carteirinha"
+                MDTextField: 
+                    id: reembolso
+                    hint_text: "Reembolso (0/1)"
+        MDRaisedButton:
+            text: "Salvar"
+            on_release: root.salvar()
+
+<ClinicoScreen>:
+    name: "clinico"
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+        padding:20
+        spacing:10
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDTopAppBar:
+            title: "Cadastro Clínico"
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+        ScrollView:
+            MDGridLayout:
+                id: container
+                cols: 1
+                adaptive_height: True
+                MDTextField: 
+                    id: cpf
+                    hint_text: "CPF do Paciente"
+                MDTextField: 
+                    id: dtcadastro
+                    hint_text: "Data Cadastro"
+                MDTextField: 
+                    id: diagnostico
+                    hint_text: "Diagnóstico"
+                MDTextField: 
+                    id: indicacao
+                    hint_text: "Indicação"
+                MDTextField: 
+                    id: avaliacao
+                    hint_text: "Avaliação"
+                MDTextField: 
+                    id: alta
+                    hint_text: "Alta"
+                MDTextField: 
+                    id: dtalta
+                    hint_text: "Data Alta"
+        MDRaisedButton:
+            text: "Salvar"
+            on_release: root.salvar()
+
+<SessaoScreen>:
+    name: "sessao"
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+        padding:20
+        spacing:10
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDTopAppBar:
+            title: "Cadastro Sessão"
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+        ScrollView:
+            MDGridLayout:
+                id: container
+                cols: 1
+                adaptive_height: True
+                MDTextField: 
+                    id: cpf
+                    hint_text: "CPF do Paciente"
+                MDTextField: 
+                    id: clinico
+                    hint_text: "ID Clínico"
+                MDTextField: 
+                    id: queixa
+                    hint_text: "Queixa/Sintoma"
+                MDTextField: 
+                    id: consciencia
+                    hint_text: "Consciência"
+                MDTextField: 
+                    id: nutricional
+                    hint_text: "Nutricional"
+                MDTextField: 
+                    id: mobilidade
+                    hint_text: "Mobilidade"
+                MDTextField: 
+                    id: data
+                    hint_text: "Data"
+                MDTextField: 
+                    id: terapias
+                    hint_text: "Terapias Aplicadas"
+                MDTextField: 
+                    id: realizado
+                    hint_text: "Realizado"
+                MDTextField: 
+                    id: evolucao
+                    hint_text: "Evolução"
+                MDTextField: 
+                    id: observacao
+                    hint_text: "Observação"
+                MDTextField: 
+                    id: nomeprof
+                    hint_text: "Nome Profissional"
+                MDTextField: 
+                    id: conselho
+                    hint_text: "Conselho"
+                MDTextField: 
+                    id: assinatura
+                    hint_text: "Assinatura"
+        MDRaisedButton:
+            text: "Salvar"
+            on_release: root.salvar()
+
+<EvolucaoScreen>:
+    name: "evolucao"
+    MDBoxLayout:
+        orientation: "vertical"
+        pos_hint:{'center_x': 0.5, 'center_y': 0.5}
+        padding:20
+        spacing:10
+
+        canvas:
+            Color:
+                rgba: 121/255, 187/255, 189/255, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        MDTopAppBar:
+            title: "Cadastro Evolução"
+            left_action_items: [["menu", lambda x: app.root.ids.nav_drawer.set_state("toggle")]]
+        ScrollView:
+            MDGridLayout:
+                id: container
+                cols: 1
+                adaptive_height: True
+                MDDropDownItem:
+                    id: combo_box
+                    text: "Selecione um item"
+                    # Os valores serão preenchidos dinamicamente
+                    #on_release: root.on_item_selected(combo_box.text)
+                MDTextField: 
+                    id: cpf
+                    hint_text: "CPF do Paciente"
+                MDTextField: 
+                    id: data
+                    hint_text: "Data"
+                MDRaisedButton:
+                    text: "Selecionar Data"
+                    on_release: app.show_date_picker()    
+                MDTextField: 
+                    id: observacao
+                    hint_text: "Observação"
+                MDTextField: 
+                    id: evolucao
+                    hint_text: "Evolução"
+        MDRaisedButton:
+            text: "Salvar"
+            on_release: root.salvar()
